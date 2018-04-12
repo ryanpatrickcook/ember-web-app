@@ -68,7 +68,9 @@ module.exports = {
       return;
     }
 
-    if (section === 'head') {
+    let contentForSection = this.addonBuildConfig.contentForSection || 'head';
+
+    if (section === contentForSection) {
       let tags = [];
 
       tags = tags.concat(require('./lib/android-link-tags')(config, MANIFEST_NAME));
