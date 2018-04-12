@@ -46,7 +46,7 @@ module.exports = {
 
     const GenerateManifest = require('./lib/broccoli/generate-manifest-json');
     const manifest = new GenerateManifest(configPath, {
-      manifestName: MANIFEST_NAME,
+      manifestName: this.addonBuildConfig.filename || MANIFEST_NAME,
       project: this.app.project,
       env: this.app.env,
       ui: this.ui
@@ -73,7 +73,7 @@ module.exports = {
     if (section === contentForSection) {
       let tags = [];
 
-      tags = tags.concat(require('./lib/android-link-tags')(config, MANIFEST_NAME));
+      tags = tags.concat(require('./lib/android-link-tags')(config, this.addonBuildConfig.filename || MANIFEST_NAME));
       tags = tags.concat(require('./lib/apple-link-tags')(this.manifestConfiguration, config));
       tags = tags.concat(require('./lib/safari-pinned-tab-tags')(this.manifestConfiguration, config));
       tags = tags.concat(require('./lib/favicon-link-tags')(this.manifestConfiguration, config));
@@ -90,7 +90,7 @@ module.exports = {
     let configureFingerprint = require('./lib/configure-fingerprint');
 
     this.app.options.fingerprint = configureFingerprint(
-      this.app.options.fingerprint, MANIFEST_NAME
+      this.app.options.fingerprint, this.addonBuildConfig.filename || MANIFEST_NAME
     );
 
     this.app.options.fingerprint = configureFingerprint(
